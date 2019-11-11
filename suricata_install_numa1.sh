@@ -706,6 +706,10 @@ EOF
 
 sed -i "/AF_PACKET/ e cat /tmp/newfile.temp" $SURICATA_CONF_FILE
 sed -i '/AF_PACKET/d' $SURICATA_CONF_FILE
+if [ $THREADS_COUNT == 6 ]; then
+  echo $THREADS_COUNT
+  sed -i "s/cpu\: \[ \"0-19\"\,\"40-59\" \]/cpu: [ \"2-19\",\"42-59\" ]/g" $SURICATA_CONF_FILE
+fi
 
 fi
 
