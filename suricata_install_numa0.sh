@@ -77,18 +77,22 @@ fi
 #
 ### Check set_irq_affinity script ###
 #
-if [ -x /usr/bin/set_irq_affinity.sh ]; then
+if [ -x /usr/bin/set_irq_affinity_bynode.sh ]; then
     echo "NIC IRQ Script is installed........[OK]"
 else
     echo -ne "Installing NIC IRQ Script\r"
     while true;do echo -n .;sleep 1;done &
     cd /tmp
-    wget https://gist.github.com/SrijanNandi/5a4a8a677d8f96e64e2292fd1b6926cb/archive/0c6e500e81e161505d9111ac77115a2367180d12.zip >/dev/null 2>&1
-    unzip 0c6e500e81e161505d9111ac77115a2367180d12.zip
-    cd 5a4a8a677d8f96e64e2292fd1b6926cb-0c6e500e81e161505d9111ac77115a2367180d12/
-    mv set_irq_affinity.sh /usr/sbin/ >/dev/null 2>&1
+    git clone -b master https://github.com/SrijanNandi/suricata_scripts.git >/dev/null 2>&1
+    cd suricata_scripts/
+    cp set_irq_affinity.sh /usr/sbin/ >/dev/null 2>&1
+    cp set_irq_affinity_bynode.sh /usr/sbin/ >/dev/null 2>&1
+    cp common_irq_affinity.sh /usr/sbin/ >/dev/null 2>&1
     chmod 755 /usr/sbin/set_irq_affinity.sh >/dev/null 2>&1
+    chmod 755 /usr/sbin/set_irq_affinity_bynode.sh >/dev/null 2>&1
+    chmod 755 /usr/sbin/common_irq_affinity.sh >/dev/null 2>&1
     cd `pwd`
+    rm -rf /tmp/suricata_scripts >/dev/null 2>&1
     kill $!; trap 'kill $!' SIGTERM
     echo Done
 fi
