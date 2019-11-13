@@ -326,10 +326,10 @@ for ((i=0; i<${#array[@]}; i+=2)); do
     copy-iface: FIRST_INT
 EOF
    sed -i "s/- interface: FIRST_INT/- interface: ${array[$i]}/g" $TMP_FILE
-   sed -i "s/cluster-id: FIRST_ID/cuslter-id: $(expr 99 - $ITER)/g" $TMP_FILE
+   sed -i "s/cluster-id: FIRST_ID/cluster-id: $(expr 99 - $ITER)/g" $TMP_FILE
    sed -i "s/copy-iface: SECOND_INT/copy-iface: "${array[$i+1]}"/g" $TMP_FILE
    sed -i "s/- interface: SECOND_INT/- interface: "${array[$i+1]}"/g" $TMP_FILE
-   sed -i "s/cluster-id: SECOND_ID/cuslter-id: $(expr 99 - $ITER - 1)/g" $TMP_FILE
+   sed -i "s/cluster-id: SECOND_ID/cluster-id: $(expr 99 - $ITER - 1)/g" $TMP_FILE
    sed -i "s/copy-iface: FIRST_INT/copy-iface: "${array[$i]}"/g" $TMP_FILE 
    sed -i "s/threads: THREADS_COUNT/threads: $THREADS_COUNT/g" $TMP_FILE
    ITER=$(expr $ITER + 2)
